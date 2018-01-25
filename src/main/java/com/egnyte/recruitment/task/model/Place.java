@@ -1,4 +1,4 @@
-package com.egnyte.recruitment.task.models;
+package com.egnyte.recruitment.task.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
