@@ -16,15 +16,12 @@ public class PlacesServiceImpl implements PlacesService {
     @Autowired
     FacebookClient facebookCfg;
 
-
     @Override
     public ResponseList<Place> place(String country, String city, String desc) throws FacebookException {
         Map<String, Double> coords;
         coords = OpenStreetMapUtils.getInstance().getCoordinates(country + " " + city);
-        GeoLocation center = new GeoLocation(coords.get("lat"), coords.get("lon"));
-        int distanceFromCenter = 500;
-        System.out.println("latitude :" + coords.get("lat"));
-        System.out.println("longitude:" + coords.get("lon"));
-        return facebookCfg.facebook().search().searchPlaces(desc, center, distanceFromCenter);
+        GeoLocation location = new GeoLocation(coords.get("lat"), coords.get("lon"));
+        int distanceFromLocation = 700;
+        return facebookCfg.facebook().search().searchPlaces(desc, location, distanceFromLocation);
     }
 }

@@ -2,7 +2,6 @@ package com.egnyte.recruitment.task.config;
 
 
 import facebook4j.Facebook;
-import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
 import facebook4j.auth.AccessToken;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,7 @@ public class FacebookClient {
     @Value("${oauth.permissions}")
     private String permissions;
 
-    public Facebook facebook() throws FacebookException {
+    public Facebook facebook() {
         Facebook facebook = new FacebookFactory().getInstance();
         facebook.setOAuthAppId(appId, appSecret);
         facebook.setOAuthPermissions(permissions);

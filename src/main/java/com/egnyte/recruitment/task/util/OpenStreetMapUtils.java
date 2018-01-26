@@ -7,6 +7,7 @@ import net.minidev.json.JSONValue;
 import net.minidev.json.parser.JSONParser;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -31,7 +32,7 @@ public class OpenStreetMapUtils {
         return instance;
     }
 
-    private String getRequest(String url) throws Exception {
+    private String getRequest(String url) throws IOException {
 
         final URL obj = new URL(url);
         final HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -61,7 +62,7 @@ public class OpenStreetMapUtils {
         String queryResult = null;
 
         query = new StringBuffer();
-        res = new HashMap<String, Double>();
+        res = new HashMap<>();
 
         query.append("http://nominatim.openstreetmap.org/search?q=");
 
@@ -94,19 +95,16 @@ public class OpenStreetMapUtils {
 
         if (obj instanceof JSONArray) {
             JSONArray array = (JSONArray) obj;
-            if (array.size() > 0) {
+            if (array.isEmpty()) {
                 JSONObject jsonObject = (JSONObject) array.get(0);
-
                 String lon = (String) jsonObject.get("lon");
                 String lat = (String) jsonObject.get("lat");
                 log.debug("lon=" + lon);
                 log.debug("lat=" + lat);
                 res.put("lon", Double.parseDouble(lon));
                 res.put("lat", Double.parseDouble(lat));
-
             }
         }
-
         return res;
     }
 }

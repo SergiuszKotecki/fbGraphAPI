@@ -20,8 +20,8 @@ public class PlaceSearcher {
     public ResponseList<Place> getPlaceByCountryCityAndDesc(@PathVariable("country") String country,
                                                               @PathVariable("city") String city,
                                                               @PathVariable("description") String description) throws FacebookException {
-        ResponseList<facebook4j.Place> places = placesService.place(country, city, description);
-        return places;
+
+        return placesService.place(country, city, description);
 
     }
 
