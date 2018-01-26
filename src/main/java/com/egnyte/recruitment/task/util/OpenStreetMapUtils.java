@@ -17,12 +17,11 @@ import java.util.Map;
 @Slf4j
 public class OpenStreetMapUtils {
 
-
     private static OpenStreetMapUtils instance = null;
-    private JSONParser jsonParser;
+
 
     public OpenStreetMapUtils() {
-        jsonParser = new JSONParser();
+        JSONParser jsonParser = new JSONParser();
     }
 
     public static OpenStreetMapUtils getInstance() {
@@ -45,7 +44,7 @@ public class OpenStreetMapUtils {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
@@ -56,13 +55,10 @@ public class OpenStreetMapUtils {
     }
 
     public Map<String, Double> getCoordinates(String address) {
-        Map<String, Double> res;
-        StringBuffer query;
+        Map<String, Double> res = new HashMap<>();
+        StringBuilder query = new StringBuilder();
         String[] split = address.split(" ");
         String queryResult = null;
-
-        query = new StringBuffer();
-        res = new HashMap<>();
 
         query.append("http://nominatim.openstreetmap.org/search?q=");
 
@@ -95,17 +91,19 @@ public class OpenStreetMapUtils {
 
         if (obj instanceof JSONArray) {
             JSONArray array = (JSONArray) obj;
-            if (array.isEmpty()) {
+            if (!array.isEmpty()) {
                 JSONObject jsonObject = (JSONObject) array.get(0);
+
                 String lon = (String) jsonObject.get("lon");
                 String lat = (String) jsonObject.get("lat");
                 log.debug("lon=" + lon);
                 log.debug("lat=" + lat);
                 res.put("lon", Double.parseDouble(lon));
                 res.put("lat", Double.parseDouble(lat));
+
             }
         }
+
         return res;
     }
 }
-

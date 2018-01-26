@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Place {
+public class PlaceDTO {
 
     String name;
-    float latitude;
-    float longitude;
+    Float latitude;
+    Float longitude;
 
 }
