@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PlacesService {
     List<PlaceDTO> place (String country, String city, String desc) throws FacebookException;
+    List<PlaceDTO> place (String country, String state, String city, String desc) throws FacebookException;
 }

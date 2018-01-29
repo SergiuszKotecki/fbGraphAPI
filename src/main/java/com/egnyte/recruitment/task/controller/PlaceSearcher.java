@@ -25,5 +25,14 @@ public class PlaceSearcher {
         return placesService.place(country, city, description);
     }
 
+    @GetMapping(value = "/{country}/{state}/{city}/{description}")
+    public List<PlaceDTO> getPlaceByCountryCityAndDesc(@PathVariable("country") String country,
+                                                       @PathVariable("city") String city,
+                                                       @PathVariable("state") String state,
+                                                       @PathVariable("description") String description) throws FacebookException {
+
+        return placesService.place(country, state, city, description);
+    }
+
 
 }
